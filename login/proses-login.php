@@ -3,11 +3,14 @@ require_once "../database/koneksi.php";
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$q = $db->query("SELECT * FROM admin WHERE username = '$username' AND password = '$password'");
-if($q->num_rows > 0){
+$stmt = $db->prepare("SELECT * FROM admin WHERE username = ? AND password = ?");
+$stmt->bind_param("ss", $username, $password);
+$stmt->execute();
+$result = $stmt->get_result();
+if($result->num_rows > 0){
     session_start();
-    $data = $q->fetch_assoc();
-    $_SESSION['id_admin'] = $data['id_admin'];
+    $data_user = $result->fetch_assoc();
+    $_SESSION['id_admin'] = $data_user['id'];
     header("location: ../admin/");
 }
 else {
@@ -18,4 +21,5 @@ else {
     </script>
     <?php
 }
+$stmt->close();
 ?>
