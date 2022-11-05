@@ -50,7 +50,7 @@ if(isset($_POST['submit'])) {
         }
     }
 
-    $q = $db->query("INSERT INTO daftar_game (nama_game, icon_game, kategori, deskripsi, total_download) VALUES ('$nama_game', '$icon_game', '$kategori', '$deskripsi', $total_download)");
+    $q = $db->query("INSERT INTO `daftar_game` (`nama_game`, `icon_game`, `kategori`, `deskripsi`, `total_download`) VALUES ('$nama_game', '$icon_game', '$kategori', '$deskripsi', $total_download)");
     if($q) {
         header("location: index.php");
     }

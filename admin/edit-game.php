@@ -31,10 +31,9 @@ if(isset($_POST['submit'])){
     $nama_game = $_POST['nama_game'];
     $kategori = $_POST['kategori'];
     $deskripsi = $_POST['deskripsi'];
-    $stmt = $db->prepare("UPDATE `daftar_game` SET nama_game = ?, kategori = ?, deskripsi = ? WHERE id = ?");
+    $stmt = $db->prepare("UPDATE `daftar_game` SET `nama_game` = ?, `kategori` = ?, `deskripsi` = ? WHERE `id` = ?");
     $stmt->bind_param("sssi", $nama_game, $kategori, $deskripsi, $id);
     $stmt->execute();
     header("location: index.php");
 }
-
 ?>
