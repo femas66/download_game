@@ -19,10 +19,22 @@
     ?>
     <form action="" method="post"> 
         <input type="text" name="nama_game" placeholder="Nama game" value="<?php echo $data['nama_game'] ?>"><br>
-        <input type="text" name="icon_game" placeholder="Icon game" value="<?php echo $data['icon_game'] ?>"><br>
         <input type="text" name="kategori" placeholder="Kategori" value="<?php echo $data['kategori'] ?>"><br>
         <textarea name="deskripsi" cols="30" rows="10"><?php echo $data['deskripsi'] ?></textarea><br>
         <button type="submit" name="submit">Edit</button>
     </form>
 </body>
 </html>
+<?php
+if(isset($_POST['submit'])){
+    require_once "../database/koneksi.php";
+    $nama_game = $_POST['nama_game'];
+    $kategori = $_POST['kategori'];
+    $deskripsi = $_POST['deskripsi'];
+    $stmt = $db->prepare("UPDATE `daftar_game` SET nama_game = ?, kategori = ?, deskripsi = ? WHERE id = ?");
+    $stmt->bind_param("sssi", $nama_game, $kategori, $deskripsi, $id);
+    $stmt->execute();
+    header("location: index.php");
+}
+
+?>
